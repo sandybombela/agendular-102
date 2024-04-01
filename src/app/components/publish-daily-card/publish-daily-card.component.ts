@@ -7,47 +7,41 @@ import { emotionsSeed } from 'src/utils/seed';
 @Component({
   selector: 'app-publish-daily-card',
   templateUrl: './publish-daily-card.component.html',
-  styleUrl: './publish-daily-card.component.css'
+  styleUrls: ['./publish-daily-card.component.css']
 })
-
 export class PublishDailyCardComponent implements OnInit {
-  @Output('nuevoDaily') dailyEmitter = new EventEmitter<Daily>()
+  @Output() nuevoDaily: EventEmitter<Daily> = new EventEmitter<Daily>();
 
-  clockNow: Date = new Date()
-  todayDaily: NewDaily = new NewDaily()
-  emotionsCatalog: string[] = emotionsSeed
+  clockNow: Date = new Date();
+  todayDaily: NewDaily = new NewDaily();
+  emotionsCatalog: string[] = emotionsSeed;
 
   constructor(
     private clockService: ClockService,
     private dailiesService: DailiesService
-  ) {
-
-  }
+  ) {}
 
   ngOnInit(): void {
     this.clockService.getClock().subscribe((clockNow) => {
-      this.clockNow = clockNow
-    })
+      this.clockNow = clockNow;
+    });
   }
 
   publishDaily() {
-    // this.dailyEmitter.emit(this.todayDaily)
-     //this.http://localhost:3000s.todayDaily = new Daily()
+    // this.nuevoDaily.emit(this.todayDaily);
+    // this.todayDaily = new Daily();
 
     this.dailiesService.postDaily(this.todayDaily)
-      .subscribe(
-        {
-          next: (data) => {
-            // Manejo de Respuesta (Satisfactoria)
-            console.log('data', data)
-
-          },
-          error: (error) => {
-            // Manejo de Errores
-            console.log('error', error)
-            alert('Intenta de nuevo')
-          }
+      .subscribe({
+        next: (data) => {
+          // Manejo de Respuesta (Satisfactoria)
+          console.log('data', data);
+        },
+        error: (error) => {
+          // Manejo de Errores
+          console.log('error', error);
+          alert('Intenta de nuevo');
         }
-      )
+      });
   }
 }
