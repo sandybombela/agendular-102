@@ -6,7 +6,7 @@
                     [(ngModel)]="todayDaily.emotion"
                     [ngStyle]="
                         {
-                            'background-color': todayDaily.emotion.length > 0 ? 'transparent' : 'white', 
+                            'background-color': todayDaily.emotion.length > 0 ? 'transparent' : 'white',
                             'border': todayDaily.emotion.length > 0 && 0
                         }
                     "
@@ -22,7 +22,7 @@
             </div>
             <div class="date">
                 {{ clockNow | date: 'short' }}
-                <input 
+                <input
                     [(ngModel)]="todayDaily.color"
                     (ngModelChange)="todayDaily.getDarkerColor()"
                     type="color"

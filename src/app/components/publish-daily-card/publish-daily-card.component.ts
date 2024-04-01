@@ -32,7 +32,7 @@ export class PublishDailyCardComponent implements OnInit {
 
   publishDaily() {
     // this.dailyEmitter.emit(this.todayDaily)
-    // this.todayDaily = new Daily()
+     //this.http://localhost:3000s.todayDaily = new Daily()
 
     this.dailiesService.postDaily(this.todayDaily)
       .subscribe(
@@ -40,7 +40,7 @@ export class PublishDailyCardComponent implements OnInit {
           next: (data) => {
             // Manejo de Respuesta (Satisfactoria)
             console.log('data', data)
-            
+
           },
           error: (error) => {
             // Manejo de Errores

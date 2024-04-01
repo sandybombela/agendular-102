@@ -6,4 +6,4 @@ export interface IDaily {
     timestamp: number
 }
 
-export interface INewDaily extends Omit<IDaily, 'id' | 'timestamp'> { } 
+export interface INewDaily extends Omit<IDaily, 'id' | 'timestamp'> { }
