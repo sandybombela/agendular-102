@@ -9,14 +9,13 @@ import { environment } from 'src/environments/environment';
 })
 export class DailiesService {
 
-  private endpointURL = `${environment.apiHost}/dailies`
+  private endpointURL = `${environment.apiHost}/dailies`;
 
-  // BehaviorSubject, es un observable el cual guarda un estado inicial
-  // Permite consultar el último valor emitido
-  private dailies = new BehaviorSubject<Daily[]>([])
+  // BehaviorSubject guarda un estado inicial y permite consultar el último valor emitido
+  private dailies = new BehaviorSubject<Daily[]>([]);
 
-  // Permite exponer publicamente un observable con el método de suscripción
-  dailies$ = this.dailies.asObservable()
+  // Observable público para suscribirse
+  dailies$ = this.dailies.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -24,7 +23,7 @@ export class DailiesService {
 
   // Método GET
   getDailies() {
-    return this.http.get<Daily[]>(this.endpointURL)
+    return this.http.get<Daily[]>(this.endpointURL);
   }
 
   // Método POST
@@ -32,27 +31,22 @@ export class DailiesService {
 
     /**
      * Operador pipe & tap de rxjs
-     * 
+     *
      * pipe: Encadena operadores de rxjs
      * tap: Permite ejecutar una función en cada emisión, sin alterar los datos
      */
     return this.http.post<Daily>(this.endpointURL, daily)
-      .pipe(  
-      tap((newDaily: Daily) => {
-        const currentDailies = this.dailies.getValue()
-        
-        currentDailies.unshift(newDaily)
-        this.dailies.next(currentDailies)
-      })
-    );
+      .pipe(
+        tap((newDaily: Daily) => {
+          const currentDailies = this.dailies.getValue();
+          currentDailies.unshift(newDaily);
+          this.dailies.next(currentDailies);
+        })
+      );
   }
 
   // Método del Observable
   setDailies(dailies: Daily[]) {
-    this.dailies.next(dailies)
+    this.dailies.next(dailies);
   }
-
-  
-
-
 }
